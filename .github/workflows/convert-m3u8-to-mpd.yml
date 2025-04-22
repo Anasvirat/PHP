@@ -2,6 +2,8 @@ name: Convert M3U8 to 15min MPD
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *' # Every 15 minutes
 
 jobs:
   convert:
@@ -19,25 +21,35 @@ jobs:
       - name: Download 15 minutes from M3U8 and convert to DASH
         run: |
           mkdir -p output
-          ffmpeg -y -headers "User-Agent: Mozilla/5.0" \
-          -i "http://exm3u.extraott.com/live/2249871453/1991220000/400201942.m3u8" \
-          -t 900 -c:v libx264 -c:a aac -bf 1 -keyint_min 60 -g 60 -sc_threshold 0 \
-          -b:v 800k -b:a 128k -use_timeline 1 -use_template 1 -seg_duration 4 \
-          -f dash output/stream.mpd
+          ffmpeg -y -i "https://cdn3.tamilultra.fr/ASTRO_CRICKET/tracks-v1a1/mono.m3u8?token=12666092e931f82160152678cc6426e15de7cc2a-1eb49a109758707caa7d3a2de6816c41-1745342143-1745340343" \
+            -t 900 \
+            -c copy \
+            -f dash \
+            -remove_at_exit 1 \
+            -window_size 900 \
+            -extra_window_size 30 \
+            -seg_duration 6 \
+            -use_timeline 1 \
+            -use_template 1 \
+            output/stream.mpd
 
       - name: Delete unreferenced segments
         run: |
-          cd output
-          xmlstarlet sel -t -m "//SegmentURL" -v "@media" -n stream.mpd > keep_list.txt
-          xmlstarlet sel -t -m "//Initialization" -v "@sourceURL" -n stream.mpd >> keep_list.txt
-          for f in *.m4s *.mp4; do
-            grep -q "$f" keep_list.txt || rm -f "$f"
-          done
+          if [ -d "output" ]; then
+            cd output
+            xmlstarlet sel -t -m "//SegmentURL" -v "@media" -n stream.mpd > keep_list.txt
+            xmlstarlet sel -t -m "//Initialization" -v "@sourceURL" -n stream.mpd >> keep_list.txt
+            for f in *.m4s *.mp4; do
+              grep -q "$f" keep_list.txt || rm -f "$f"
+            done
+          else
+            echo "Output folder not found. Skipping cleanup."
+          fi
 
       - name: Commit and push MPD and current segments
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git add output/
-          git commit -m "Update 15-minute DASH with current segments"
+          git commit -m "Update DASH segments from M3U8 [skip ci]" || echo "No changes to commit"
           git push
