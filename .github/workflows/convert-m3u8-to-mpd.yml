@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install FFmpeg and XML Tools
+      - name: Install FFmpeg and XML tools
         run: |
           sudo apt update
           sudo apt install -y ffmpeg xmlstarlet
@@ -20,17 +20,15 @@ jobs:
         run: |
           mkdir -p output
           ffmpeg -y -i "http://3.team.ga/ch1988/mono.m3u8?token=mkoyan01.gggvuQb0_PS58ZmHycUdsbN0bBSShtB_KCbzBlsj7f560X5fgfJGDNtNXi_bCCXB" \
-          -t 900 -c:v copy -c:a copy -f dash output/stream.mpd
+          -t 900 -c:v libx264 -c:a aac -bf 1 -keyint_min 60 -g 60 -sc_threshold 0 \
+          -b:v 800k -b:a 128k -use_timeline 1 -use_template 1 -seg_duration 4 \
+          -f dash output/stream.mpd
 
       - name: Delete unreferenced segments
         run: |
           cd output
-          # Extract all segment filenames from the MPD
           xmlstarlet sel -t -m "//SegmentURL" -v "@media" -n stream.mpd > keep_list.txt
-          # Add init segments if any
           xmlstarlet sel -t -m "//Initialization" -v "@sourceURL" -n stream.mpd >> keep_list.txt
-          
-          # Delete all .m4s not in keep list
           for f in *.m4s *.mp4; do
             grep -q "$f" keep_list.txt || rm -f "$f"
           done
