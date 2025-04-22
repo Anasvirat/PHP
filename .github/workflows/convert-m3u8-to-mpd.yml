@@ -19,7 +19,8 @@ jobs:
       - name: Download 15 minutes from M3U8 and convert to DASH
         run: |
           mkdir -p output
-          ffmpeg -y -i "http://3.team.ga/ch1988/mono.m3u8?token=mkoyan01.gggvuQb0_PS58ZmHycUdsbN0bBSShtB_KCbzBlsj7f560X5fgfJGDNtNXi_bCCXB" \
+          ffmpeg -y -headers "User-Agent: Mozilla/5.0" \
+          -i "http://exm3u.extraott.com/live/2249871453/1991220000/400201942.m3u8" \
           -t 900 -c:v libx264 -c:a aac -bf 1 -keyint_min 60 -g 60 -sc_threshold 0 \
           -b:v 800k -b:a 128k -use_timeline 1 -use_template 1 -seg_duration 4 \
           -f dash output/stream.mpd
