@@ -1,0 +1,44 @@
+name: Convert M3U8 to 15min MPD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install FFmpeg and XML Tools
+        run: |
+          sudo apt update
+          sudo apt install -y ffmpeg xmlstarlet
+
+      - name: Download 15 minutes from M3U8 and convert to DASH
+        run: |
+          mkdir -p output
+          ffmpeg -y -i "http://3.team.ga/ch1988/mono.m3u8?token=mkoyan01.gggvuQb0_PS58ZmHycUdsbN0bBSShtB_KCbzBlsj7f560X5fgfJGDNtNXi_bCCXB" \
+          -t 900 -c:v copy -c:a copy -f dash output/stream.mpd
+
+      - name: Delete unreferenced segments
+        run: |
+          cd output
+          # Extract all segment filenames from the MPD
+          xmlstarlet sel -t -m "//SegmentURL" -v "@media" -n stream.mpd > keep_list.txt
+          # Add init segments if any
+          xmlstarlet sel -t -m "//Initialization" -v "@sourceURL" -n stream.mpd >> keep_list.txt
+          
+          # Delete all .m4s not in keep list
+          for f in *.m4s *.mp4; do
+            grep -q "$f" keep_list.txt || rm -f "$f"
+          done
+
+      - name: Commit and push MPD and current segments
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add output/
+          git commit -m "Update 15-minute DASH with current segments"
+          git push
