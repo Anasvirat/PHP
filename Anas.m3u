@@ -1,0 +1,31 @@
+EXTM3U
+
+#EXTM3U x-tvg-url="https://www.tsepg.cf/epg.xml.gz"
+
+#EXTM3U x-tvg-url="https://avkb.short.gy/jioepg.xml.gz"
+
+#EXTINF:-1 tvg-id="ts78" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrAYYNyHRNJBJP7N2k8eRZR1c0bzpjh2_OnpRM5ZD1har6_R6vfOtYlyNQ&s=10" group-title="Cricket",Tamil Hotstar
+
+
+#EXTINF:-1 tvg-id="1" tvg-chno="56" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVJ61K-8N3c5plhXMh1-PLm4yyGWn_unNubFquS8gHhl4abH9vbxgoe7nV&s=10" group-title="Sports",Star Sports 1 Tamil HD
+https://streamsun.cloudflare-863.workers.dev/sungo/live/stream.m3u8?id=sptamil2|Referer=https://play.tamilbulbtv.live/
+
+#EXTINF:-1 tvg-id="2" tvg-chno="56" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWROVWY4F0c6fMoTnfxjYhyTnS_TKJIivs0Ed690jhniYJqcVezfboIuQ&s=10" group-title="Sports", Star Sports 1 Tamil HD
+https://anas-923o.onrender.com/Anas.php?id=400201942&.m3u8
+
+#EXTINF:-1 tvg-id="3" tvg-chno="56" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWROVWY4F0c6fMoTnfxjYhyTnS_TKJIivs0Ed690jhniYJqcVezfboIuQ&s=10" group-title="Sports", Star Sports 1 Tamil HD
+http://exm3u.extraott.com:80/live/2249871453/1991220000/400201942.m3u8
+
+#EXTINF:-1 tvg-id="4" tvg-chno="56" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb7qMbyzpYVac2HvLimJ_W4rQJk57C1cvi5Q&s" group-title="Sports",Star Sports 2 Tamil HD
+https://anas-923o.onrender.com/Anas.php?id=401627870&.m3u8
+
+#EXTINF:-1 tvg-id="5" tvg-chno="56" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMfQppVOX_XZeqN4L5bU_qtonbGbiVxl81bw&s" group-title="Sports",Star Sports 1 HD
+https://anas-923o.onrender.com/1.php?id=85564
+
+#EXTINF:-1 tvg-id="6" tvg-chno="56" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTamJm50OlrEwJEawjQV9x1P923UBnpI7hLPQ&s" group-title="Sports",Star Sports 2  HD
+https://anas-923o.onrender.com/1.php?id=85566
+
+#EXTINF:-1 tvg-id="7" tvg-chno="56" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpMCoR3VuXQCF0y_pAqLnCcoVE6fOJKAiLpw&s" group-title="Kids",Hungama
+https://8088y.site/P/X/Box.php?id=18456
+
+
