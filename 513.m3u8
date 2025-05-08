@@ -1,0 +1,15 @@
+
+#EXTM3U
+#EXT-X-TARGETDURATION:8
+#EXT-X-VERSION:3
+#EXT-X-MEDIA-SEQUENCE:21457
+#EXT-X-ALLOW-CACHE:YES
+#EXT-X-PROGRAM-DATE-TIME:2023-06-07T03:56:28Z
+#EXTINF:7.920,
+http://nonamevos.com:80/live/billy1/billy1/51824.ts
+#EXTINF:8.000,
+http://nonamevos.com:80/live/billy1/billy1/51824.ts
+#EXTINF:8.000,
+http://nonamevos.com:80/live/billy1/billy1/51824.ts
+#EXTINF:8.000,
+http://nonamevos.com:80/live/billy1/billy1/51824.ts
