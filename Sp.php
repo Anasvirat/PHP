@@ -1,10 +1,10 @@
 <?php
 // SETTINGS
-$m3u8_url = 'https://example.com/stream.m3u8'; // Replace with your M3U8
+$m3u8_url = 'http://8088y.site/P/X/X2/play.php?id=400201942&.m3u8'; // Replace with your M3U8
 $output_name = 'output';
 $duration = 15000; // 4 hours 10 minutes in seconds
-$key_id = '1234567890abcdef1234567890abcdef';
-$key = 'abcdef1234567890abcdef1234567890';
+$key_id = '10384187458199';
+$key = '10384187458199';
 
 // STEP 1: Download and trim M3U8
 shell_exec("ffmpeg -i \"$m3u8_url\" -t $duration -c copy {$output_name}.mp4");
