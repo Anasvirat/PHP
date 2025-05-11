@@ -1,30 +1,28 @@
 <?php
-// SETTINGS
-$m3u8_url = 'http://8088y.site/P/X/X2/play.php?id=400201942&.m3u8'; // Replace with your M3U8
-$output_name = 'output';
-$duration = 15000; // 4 hours 10 minutes in seconds
-$key_id = '10384187458199';
-$key = '10384187458199';
+// Original inputs
+$m3u8_url = 'http://8088y.site/P/X/X2/play.php?id=400201942&.m3u8';
+$key_raw = '10384187458199';
+
+// Convert to proper hex
+$key_hex = str_pad(dechex($key_raw), 32, '0', STR_PAD_LEFT);
+$key_id = $key_hex;
+$key = $key_hex;
+
+$output = 'stream';
+$duration = 15000; // 4h10m
 
 // STEP 1: Download and trim M3U8
-shell_exec("ffmpeg -i \"$m3u8_url\" -t $duration -c copy {$output_name}.mp4");
+echo "Downloading and converting M3U8...\n";
+$cmd1 = "ffmpeg -y -i \"$m3u8_url\" -t $duration -c copy {$output}.mp4 2>&1";
+echo shell_exec($cmd1);
 
-// STEP 2: Convert to MPD with encryption
-$pssh = '00000038706...'; // Optional base64 PSSH if using DRM like Widevine
-shell_exec("MP4Box -dash 4000 -frag 4000 -rap -profile dashavc264:live -out {$output_name}.mpd -encryption -key 1:$key_id:$key {$output_name}.mp4");
+// STEP 2: Convert to encrypted DASH MPD
+echo "Generating MPD with encryption...\n";
+$cmd2 = "MP4Box -dash 4000 -frag 4000 -rap -profile dashavc264:live " .
+        "-out {$output}.mpd -encryption -key 1:$key_id:$key {$output}.mp4 2>&1";
+echo shell_exec($cmd2);
 
-// STEP 3: Output MPD video via Dash.js
-echo <<<EOD
-<!DOCTYPE html>
-<html>
-<head><title>DASH Player</title><script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script></head>
-<body>
-<video id="videoPlayer" controls autoplay width="640" height="360"></video>
-<script>
-    var player = dashjs.MediaPlayer().create();
-    player.initialize(document.querySelector("#videoPlayer"), "{$output_name}.mpd", true);
-</script>
-</body>
-</html>
-EOD;
+echo "Done! Output files:\n";
+echo "- {$output}.mp4\n";
+echo "- {$output}.mpd and segments\n";
 ?>
