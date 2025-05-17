@@ -64,7 +64,7 @@ if (empty($id)) {
         fclose($fp);
     } else {
         session_write_close(); // Unlock the session data
-        $url_for_domain = "http://supersonictv.live:8080/live/Bettie1/Bettie1/{$id}.m3u8";
+        $url_for_domain = "http://fast.luckonline.eu/live/2Nw6SArNhs/9754302190/{$id}.m3u8";
         $domain = extractDomain($url_for_domain, $headers);
 
         if ($domain) {
