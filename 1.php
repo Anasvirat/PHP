@@ -64,7 +64,7 @@ if (empty($id)) {
         fclose($fp);
     } else {
         session_write_close(); // Unlock the session data
-        $url_for_domain = "http://fast.luckonline.eu/live/2Nw6SArNhs/9754302190/{$id}.m3u8";
+        $url_for_domain = "http://starshare.org/live/edwinnn/edwinnn/{$id}.ts";
         $domain = extractDomain($url_for_domain, $headers);
 
         if ($domain) {
