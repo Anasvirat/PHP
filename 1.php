@@ -64,7 +64,7 @@ if (empty($id)) {
         fclose($fp);
     } else {
         session_write_close(); // Unlock the session data
-        $url_for_domain = "http://starshare.org/live/edwinnn/edwinnn/{$id}.ts";
+        $url_for_domain = "http://tigerott.com:8080/live/0583333/111111/{$id}.ts";
         $domain = extractDomain($url_for_domain, $headers);
 
         if ($domain) {
