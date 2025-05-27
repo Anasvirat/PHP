@@ -64,7 +64,7 @@ if (empty($id)) {
         fclose($fp);
     } else {
         session_write_close(); // Unlock the session data
-        $url_for_domain = "http://tigerott.com:8080/live/0583333/111111/{$id}.ts";
+        $url_for_domain = "http://tigerott.com:8080/live/0583333/111111/{$id}.m3u8";
         $domain = extractDomain($url_for_domain, $headers);
 
         if ($domain) {
