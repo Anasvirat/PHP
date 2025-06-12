@@ -2,10 +2,10 @@
 set_time_limit(0);
 ignore_user_abort(true);
 
-$streamUrl = 'https://ts-j8bh.onrender.com/box.ts?id=4';
-$streamName = 'star_sports1_tamil';
+$streamUrl = 'https://ts-j8bh.onrender.com/box.ts?id=3';
+$streamName = 'sonyyay';
 
-$baseDir = __DIR__ . "/output/$streamName";
+$baseDir = __DIR__ . "/m3u8/$streamName";
 $segmentDuration = 8; // seconds
 $maxSegments = 5;
 $bufferSize = 256 * 1024;
